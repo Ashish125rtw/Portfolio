@@ -1,1 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ashish | Computer Engineer Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --accent: #10b981;
+            --bg: #030712;
+            --card: #111827;
+            --text-gray: #94a3b8;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.08);
+            --accent-gradient: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+        }
 
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        body { 
+            background-color: var(--bg); 
+            color: #f3f4f6; 
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            padding: 1rem 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(3, 7, 18, 0.8);
+            backdrop-filter: blur(12px);
+            position: fixed; width: 100%; top: 0; z-index: 1000;
+            border-bottom: 1px solid var(--border);
+        }
+        .logo { font-weight: 800; font-size: 1.2rem; letter-spacing: -1px; color: var(--primary); }
+        .nav-links a { color: var(--text-gray); text-decoration: none; margin-left: 2rem; font-size: 0.85rem; transition: 0.3s; font-weight: 500; }
+        .nav-links a:hover { color: var(--primary); }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 10%;
+            background: radial-gradient(circle at 50% 50%, #1e293b 0%, #030712 100%);
+        }
+        .hero-content {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            max-width: 1200px;
+            width: 100%;
+        }
+        .profile-img {
+            width: 320px;
+            height: 320px;
+            border-radius: 40px;
+            object-fit: cover;
+            border: 2px solid var(--border);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .profile-img:hover { transform: scale(1.05) rotate(2deg); border-color: var(--primary); }
+        .hero-text h1 { font-size: 4.5rem; line-height: 1; margin: 15px 0; font-weight: 800; }
+        .hero-text p { font-size: 1.2rem; color: var(--text-gray); margin-bottom: 35px; max-width: 550px; }
+        
+        .badge {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--primary);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* --- BUTTONS --- */
+        .btn-group { display: flex; gap: 15px; }
+        .btn {
+            padding: 14px 32px;
+            border-radius: 14px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95rem;
+        }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-secondary { border: 1px solid var(--border); color: white; background: var(--glass); }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.4); }
+
+        /* --- BENTO GRID SECTIONS --- */
+        section { padding: 100px 10%; max-width: 1400px; margin: 0 auto; }
+        .section-title { font-size: 2rem; margin-bottom: 3rem; display: flex; align-items: center; gap: 15px; }
+        .section-title::after { content: ""; height: 1px; background: var(--border); flex-grow: 1; }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+        .bento-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 30px;
+            transition: 0.4s;
+        }
+        .bento-card:hover { border-color: var(--primary); background: #1a2236; }
+        .span-2 { grid-column: span 2; }
+        .span-3 { grid-column: span 3; }
+
+        /* --- TECH STACK STYLES --- */
+        .tech-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .tech-category h3 { font-size: 0.8rem; color: var(--text-gray); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; }
+        .tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; }
+        .tag { 
+            font-size: 0.75rem; 
+            background: rgba(255,255,255,0.05); 
+            padding: 6px 12px; 
+            border-radius: 10px; 
+            color: #cbd5e1;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            border: 1px solid var(--border);
+        }
+        .tag i { color: var(--primary); }
+
+        /* --- PROJECTS --- */
+        .project-card { position: relative; overflow: hidden; }
+        .project-link { color: var(--primary); text-decoration: none; font-weight: 700; font-size: 0.85rem; margin-top: 20px; display: inline-block; }
+        .stat-num { font-size: 2.5rem; font-weight: 800; color: var(--primary); line-height: 1; }
+
+        /* --- FOOTER --- */
+        footer { padding: 100px 10% 50px; text-align: center; background: linear-gradient(to top, #0f172a, var(--bg)); }
+        .social-links { margin: 25px 0; }
+        .social-links a { color: var(--text-gray); font-size: 1.5rem; margin: 0 15px; transition: 0.3s; }
+        .social-links a:hover { color: var(--primary); transform: translateY(-3px); }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 1024px) {
+            .hero-content { flex-direction: column-reverse; text-align: center; padding-top: 80px; }
+            .hero-text h1 { font-size: 3.5rem; }
+            .btn-group { justify-content: center; }
+            .bento-grid { grid-template-columns: repeat(2, 1fr); }
+            .hero-text p { margin: 20px auto 30px; }
+        }
+        @media (max-width: 600px) {
+            .bento-grid { grid-template-columns: 1fr; }
+            .span-2, .span-3 { grid-column: span 1; }
+            .tech-container { grid-template-columns: 1fr; }
+            .hero-text h1 { font-size: 2.8rem; }
+        }
+        #terminal-section { padding: 40px 10%; display: flex; justify-content: center; background: #030712; }
+.terminal-window {
+    width: 100%;
+    max-width: 800px;
+    background: #0d1117;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+}
+.terminal-header {
+    background: #161b22;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+}
+
+.dots { display: flex; gap: 8px; margin-right: 20px; }
+.dot { width: 12px; height: 12px; border-radius: 50%; }
+.red { background: #ff5f56; } .yellow { background: #ffbd2e; } .green { background: #27c93f; }
+.terminal-title { font-size: 0.8rem; color: #8b949e; font-family: monospace; }
+.terminal-body { padding: 20px; font-family: 'Courier New', Courier, monospace; font-size: 0.9rem; color: #e6edf3; height: 300px; overflow-y: auto; }
+.input-line { display: flex; gap: 10px; align-items: center; margin-top: 10px; }
+.prompt { color: var(--accent); font-weight: bold; }
+#terminal-input { background: transparent; border: none; color: white; outline: none; width: 100%; font-family: inherit; font-size: inherit; }
+.output { margin-bottom: 5px; line-height: 1.4; white-space: pre-wrap; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">ASHISH.DEV</div>
+        <div class="nav-links">
+            <a href="#about">About</a>
+            <a href="#tech">Stack</a>
+            <a href="#projects">Work</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <span class="badge">Computer Engineer</span>
+                <h1>I'm Ashish.</h1>
+                <p>Specializing in high-performance web systems and data analytics. Turning complex data into intuitive digital experiences.</p>
+                <div class="btn-group">
+                    <a href="#projects" class="btn btn-primary"><i class="fas fa-rocket"></i> View My Work</a>
+                    <a href="resume.pdf" class="btn btn-secondary" download><i class="fas fa-download"></i> Download CV</a>
+                </div>
+            </div>
+            <div class="profile-container">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?fit=crop&w=400&h=400" alt="Ashish Portfolio" class="profile-img">
+            </div>
+            
+        </div>
+    </header>
+
+    <section id="about">
+        <h2 class="section-title">Overview</h2>
+        <div class="bento-grid">
+            <div class="bento-card span-2">
+                <h3>The Mission</h3>
+                <p style="color: var(--text-gray); margin-top: 15px;">Graduate from L.D. College of Engineering. I bridge the gap between complex backend logic (Spring Boot, Python) and intuitive frontend design. My goal is to build software that solves real-world problems.</p>
+            </div>
+            <div class="bento-card">
+                <div class="stat-num">67%</div>
+                <div style="font-size: 0.8rem; color: var(--text-gray); text-transform: uppercase;">B.E. Aggregate</div>
+            </div>
+            <div class="bento-card">
+                <h3>Interests</h3>
+                <div class="tag-cloud" style="margin-top: 10px;">
+                    <span class="tag">Data Analytics</span>
+                    <span class="tag">Web Dev</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="tech">
+        <h2 class="section-title">Technical Ecosystem</h2>
+        <div class="bento-card span-4">
+            <div class="tech-container">
+                <div class="tech-category">
+                    <h3>Languages</h3>
+                    <div class="tag-cloud">
+                        <span class="tag"><i class="fab fa-java"></i> Java</span>
+                        <span class="tag"><i class="fab fa-python"></i> Python</span>
+                        <span class="tag"><i class="fab fa-js"></i> JavaScript</span>
+                        <span class="tag"><i class="fas fa-code"></i> C</span>
+                    </div>
+                </div>
+                <div class="tech-category">
+                    <h3>Data Science</h3>
+                    <div class="tag-cloud">
+                        <span class="tag"><i class="fas fa-chart-line"></i> PowerBI</span>
+                        <span class="tag"><i class="fas fa-table"></i> Pandas</span>
+                        <span class="tag"><i class="fas fa-database"></i> MySQL</span>
+                    </div>
+                </div>
+                <div class="tech-category">
+                    <h3>Frameworks</h3>
+                    <div class="tag-cloud">
+                        <span class="tag"><i class="fas fa-leaf"></i> Spring Boot</span>
+                        <span class="tag"><i class="fab fa-bootstrap"></i> Bootstrap</span>
+                        <span class="tag"><i class="fas fa-terminal"></i> VS Code</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2 class="section-title">Selected Works</h2>
+        <div class="bento-grid">
+            <div class="bento-card span-2">
+                <span class="badge" style="background: rgba(16, 185, 129, 0.1); color: var(--accent);">Grownited Intern</span>
+                <h3 style="margin-top: 15px;">Real Estate Listing Platform</h3>
+                <p style="color: var(--text-gray); font-size: 0.9rem; margin: 10px 0;">Developed a comprehensive platform to connect buyers, sellers, and agents with a focus on user experience.</p>
+                <a href="https://github.com/Ashish125rtw/RealEstateFinder" class="project-link">VIEW PROJECT →</a>
+            </div>
+            <div class="bento-card span-2">
+                <span class="badge">Data Analysis</span>
+                <h3 style="margin-top: 15px;">Zomato Insights</h3>
+                <p style="color: var(--text-gray); font-size: 0.9rem; margin: 10px 0;">Exploratory data analysis using Seaborn and Pandas to identify restaurant pricing trends.</p>
+                <a href="#" class="project-link">VIEW CASE STUDY →</a>
+            </div>
+        </div>
+    </section>
+    <section id="terminal-section">
+    <div class="terminal-window">
+        <div class="terminal-header">
+            <div class="dots">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+            </div>
+            <div class="terminal-title">ashish@dev: ~</div>
+        </div>
+        <div class="terminal-body" id="terminal-body">
+            <div class="output">Welcome to Ashish's OS v1.0. Type <span style="color:var(--accent)">'help'</span> to see available commands.</div>
+            <div class="input-line">
+                <span class="prompt">ashish:~$</span>
+                <input type="text" id="terminal-input" autofocus autocomplete="off">
+            </div>
+        </div>
+    </div>
+</section>
+
+    <footer id="contact">
+        <h2>Let's build something awesome.</h2>
+        <p style="color: var(--text-gray); margin-bottom: 30px;">Currently open for engineering roles and collaborations.</p>
+        <a href="mailto:your-email@gmail.com" class="btn btn-primary" style="display: inline-flex; margin: 0 auto;">GET IN TOUCH</a>
+        
+        <div class="social-links">
+            <a href="https://github.com/Ashish125rtw"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+        </div>
+        <p style="font-size: 0.75rem; color: #475569; margin-top: 40px;">&copy; 2026 Ashish | Built with Vanilla HTML/CSS/JS</p>
+    </footer>
+
+    <script>
+        // Smooth reveal animation for bento cards
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = "1";
+                    entry.target.style.transform = "translateY(0)";
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.bento-card').forEach(card => {
+            card.style.opacity = "0";
+            card.style.transform = "translateY(20px)";
+            card.style.transition = "all 0.6s ease-out";
+            observer.observe(card);
+        });
+
+        const terminalInput = document.getElementById('terminal-input');
+const terminalBody = document.getElementById('terminal-body');
+
+const commands = {
+    help: "Available commands: [bio, skills, education, clear, contact]",
+    bio: "Ashish: Computer Engineer from L.D. College. Passionate about Web & Data.",
+    skills: "Java, Python, JS, Spring Boot, MySQL, Pandas, PowerBI.",
+    education: "B.E. Computer Engineering (67%), HSC (77.53%), SSC (73.66%).",
+    contact: "Email: your-email@gmail.com | GitHub: github.com/Ashish125rtw",
+    clear: "clear"
+};
+
+terminalInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+        const input = terminalInput.value.toLowerCase().trim();
+        const response = commands[input] || `Command not found: ${input}. Type 'help' for options.`;
+        
+        if (input === 'clear') {
+            terminalBody.innerHTML = `
+                <div class="output">Console cleared. Type 'help' for commands.</div>
+                <div class="input-line">
+                    <span class="prompt">ashish:~$</span>
+                    <input type="text" id="terminal-input" autofocus autocomplete="off">
+                </div>`;
+            // Re-attach listener if you clear the whole innerHTML
+            location.reload(); // Quick fix or re-run init function
+        } else {
+            const newLine = document.createElement('div');
+            newLine.className = 'output';
+            newLine.innerHTML = `<span class="prompt">ashish:~$</span> ${input}<br>${response}`;
+            terminalBody.insertBefore(newLine, terminalInput.parentElement);
+            terminalInput.value = '';
+            terminalBody.scrollTop = terminalBody.scrollHeight;
+        }
+    }
+});
+    </script>
+</body>
+</html>
